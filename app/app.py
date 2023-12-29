@@ -20,7 +20,7 @@ cursor = conn.cursor()
 
 @app.route("/")
 def main():
-    return "hostname:" + os.environ['HOSTNAME']
+    return "hostname: " + os.environ['HOSTNAME']
 
 @app.route('/read')
 def read():
