@@ -22,7 +22,7 @@ cursor = conn.cursor()
 def main():
     return "hostname:" + os.environ['HOSTNAME']
 
-@app.route('/read from database')
+@app.route('/read')
 def read():
     cursor.execute("SELECT * FROM employees")
     row = cursor.fetchone()
