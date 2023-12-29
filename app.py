@@ -20,13 +20,13 @@ cursor = conn.cursor()
 
 @app.route("/")
 def main():
-    return "Welcome!"
+    return "Hostname: " + os.environ['HOSTNAME']
 
 @app.route('/how are you')
 def hello():
     return 'I am good, how about you?'
 
-@app.route('/read from database')
+@app.route('/read')
 def read():
     cursor.execute("SELECT * FROM employees")
     row = cursor.fetchone()
