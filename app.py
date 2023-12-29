@@ -20,13 +20,9 @@ cursor = conn.cursor()
 
 @app.route("/")
 def main():
-    return "Welcome!"
+    return "Hostname: " + os.environ['HOSTNAME']
 
-@app.route('/how are you')
-def hello():
-    return 'I am good, how about you?'
-
-@app.route('/read from database')
+@app.route('/read')
 def read():
     cursor.execute("SELECT * FROM employees")
     row = cursor.fetchone()
@@ -36,6 +32,11 @@ def read():
       row = cursor.fetchone()
 
     return ",".join(result)
+
+# TODO for new features
+# @app.route('/todo')
+# def hello():
+#     return 'todo'
 
 if __name__ == "__main__":
     app.run()
