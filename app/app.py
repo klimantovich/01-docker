@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 mysql = MySQL()
 
-mysql_database_host = 'MYSQL_DATABASE_HOST' in os.environ and os.environ['MYSQL_DATABASE_HOST'] or  'localhost'
+mysql_database_host = 'MYSQL_DATABASE_HOST' in os.environ and os.environ['MYSQL_DATABASE_HOST'] or 'localhost'
 
 # MySQL configurations
 app.config['MYSQL_DATABASE_USER'] = 'db_user'
