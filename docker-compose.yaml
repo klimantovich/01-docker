@@ -5,10 +5,10 @@ services:
     image: mysql:8.0.34
     restart: always
     environment:
-      MYSQL_DATABASE: 'employee_db'
-      MYSQL_USER: 'db_user'
-      MYSQL_PASSWORD: 'passw0rd'
-      MYSQL_ROOT_PASSWORD: 'root123'
+      - MYSQL_DATABASE
+      - MYSQL_USER
+      - MYSQL_PASSWORD
+      - MYSQL_ROOT_PASSWORD
     ports:
       - '3306:3306'
     expose:
@@ -16,7 +16,7 @@ services:
     volumes:
       - "./init.sql:/docker-entrypoint-initdb.d/init.sql"
   front:
-    build: ./appx
+    build: ./app
     restart: always
     environment:
       MYSQL_DATABASE_HOST: db
