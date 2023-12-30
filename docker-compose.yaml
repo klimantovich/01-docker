@@ -23,9 +23,9 @@ services:
       - db_root_password
   front:
     build: ./app
-    # deploy:
-    #   mode: replicated
-    #   replicas: 3
+    deploy:
+      mode: replicated
+      replicas: 3
     restart: always
     depends_on:
       db:
@@ -34,8 +34,6 @@ services:
       DB_HOST: db
       DB_NAME: employee_db
       DB_USER: db_user
-    ports:
-      - '8080:5000'
     expose:
       - '5000'
     secrets:
