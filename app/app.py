@@ -33,7 +33,7 @@ def read():
       result.append(row[0])
       row = cursor.fetchone()
 
-    return ",".join(result)
+    return ", ".join(result)
 
 # TO DO 
 # @app.route('/how are you')
