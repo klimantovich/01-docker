@@ -38,6 +38,13 @@ services:
       - '5000'
     secrets:
       - db_password
+  loadbalancer:
+    build: ./loadbalancer
+    restart: always
+    ports:
+      - 80:80
+    depends_on: 
+      - front
 
 secrets:
   db_password:

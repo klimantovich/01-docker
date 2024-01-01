@@ -13,7 +13,6 @@ password_file = open(password_path, 'r')
 app.config['MYSQL_DATABASE_USER'] = os.environ['DB_USER']
 app.config['MYSQL_DATABASE_DB'] = os.environ['DB_NAME']
 app.config['MYSQL_DATABASE_HOST'] = mysql_database_host
-# app.config['MYSQL_DATABASE_PASSWORD'] = os.environ['DB_PASSWORD']
 app.config['MYSQL_DATABASE_PASSWORD'] = password_file.read()
 mysql.init_app(app)
 
