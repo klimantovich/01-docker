@@ -7,7 +7,7 @@ Run the command `docker-compose up -d` to run the app on your local os.
 Run `docker ps` to ensure that all of containers are up and running.
 ## How to use application
 Two main features:
-1. Try to access http://localhost:80 url to view page with the hostname of the container to which the loadbalancer has forwarded you.
+1. Try to access http://localhost:80 url (user: "user", password: "03012024") to view page with the hostname of the container to which the loadbalancer has forwarded you.
 2. Access the url http://localhost:80/read to read data from connected database.  
 
 P.S. to write data to Database you need to attach to the mysql container directly: `docker exec -it mysql_contaner_name bash`, connect mysql inside contauner and insert new values into db. If the container is reloaded, the data in the database will be preserved, because it has persistent volume. 
