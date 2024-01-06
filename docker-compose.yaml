@@ -1,85 +1,15 @@
-# version: '3.3'
-
-# services:
-#   db:
-#     image: mysql:8.0.34
-#     environment:
-#       MYSQL_DATABASE: employee_db
-#       MYSQL_USER: db_user
-#       MYSQL_PASSWORD_FILE: /run/secrets/db_password
-#       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
-#     restart: always
-#     healthcheck:
-#       test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password='$$(cat /run/secrets/db_password)'"]
-#       start_period: 20s
-#       interval: 5s
-#       retries: 5
-#     networks:
-#       - backend
-#     expose:
-#       - '3306'
-#     volumes:
-#       - "./db/init.sql:/docker-entrypoint-initdb.d/init.sql"
-#       - db-data:/var/lib/mysql
-#     secrets:
-#       - db_password
-#       - db_root_password
-#   front:
-#     build: ./app
-#     deploy:
-#       mode: replicated
-#       replicas: 3
-#     restart: always
-#     depends_on:
-#       db:
-#         condition: service_healthy
-#     environment:
-#       DB_HOST: db
-#       DB_NAME: employee_db
-#       DB_USER: db_user
-#     networks:
-#       - frontend
-#       - backend
-#     expose:
-#       - '5000'
-#     secrets:
-#       - db_password
-#   loadbalancer:
-#     build: ./loadbalancer
-#     restart: always
-#     networks:
-#       - frontend
-#     ports:
-#       - 80:80
-#     depends_on: 
-#       - front
-
-# volumes:
-#   db-data:
-
-# networks:
-#   frontend:
-#   backend:
-
-# secrets:
-#   db_password:
-#     file: ./db/db_password.txt
-#   db_root_password:
-#     file: ./db/db_root_password.txt
-
 version: '3.3'
 
 services:
   db:
-    image: mysql:8.0.34
+    # image: mysql:8.0.34
+    image: klim4ntovich.online/mysql:8.0.34
     environment:
       MYSQL_DATABASE: employee_db
       MYSQL_USER: db_user
-      MYSQL_PASSWORD_FILE: /run/secrets/db_password
-      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
     restart: always
     healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password='$$(cat /run/secrets/db_password)'"]
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password='$$MYSQL_PASSWORD'"]
       start_period: 20s
       interval: 5s
       retries: 5
@@ -90,9 +20,6 @@ services:
     volumes:
       - "./db/init.sql:/docker-entrypoint-initdb.d/init.sql"
       - db-data:/var/lib/mysql
-    secrets:
-      - db_password
-      - db_root_password
 
   front:
     image: klim4ntovich.online/flask-application
