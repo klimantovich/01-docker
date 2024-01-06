@@ -114,7 +114,7 @@ services:
       - '5000'
 
   loadbalancer:
-    build: ./loadbalancer
+    build: klim4ntovich.online/loadbalancer
     restart: always
     networks:
       - frontend
