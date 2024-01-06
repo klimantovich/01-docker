@@ -6,14 +6,12 @@ app = Flask(__name__)
 mysql = MySQL()
 
 mysql_database_host = 'DB_HOST' in os.environ and os.environ['DB_HOST'] or 'localhost'
-password_path = '/run/secrets/db_password'
-password_file = open(password_path, 'r')
 
 # MySQL configurations
 app.config['MYSQL_DATABASE_USER'] = os.environ['DB_USER']
 app.config['MYSQL_DATABASE_DB'] = os.environ['DB_NAME']
 app.config['MYSQL_DATABASE_HOST'] = mysql_database_host
-app.config['MYSQL_DATABASE_PASSWORD'] = password_file.read()
+app.config['MYSQL_DATABASE_PASSWORD'] = os.environ['DB_PASSWORD']
 mysql.init_app(app)
 
 conn = mysql.connect()
