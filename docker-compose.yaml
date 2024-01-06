@@ -2,7 +2,6 @@ version: '3.3'
 
 services:
   db:
-    # image: mysql:8.0.34
     image: klim4ntovich.online/mysql:8.0.34
     environment:
       MYSQL_DATABASE: employee_db
@@ -41,7 +40,7 @@ services:
       - '5000'
 
   loadbalancer:
-    build: klim4ntovich.online/loadbalancer
+    image: klim4ntovich.online/loadbalancer
     restart: always
     networks:
       - frontend
@@ -56,9 +55,3 @@ volumes:
 networks:
   frontend:
   backend:
-
-secrets:
-  db_password:
-    file: ./db/db_password.txt
-  db_root_password:
-    file: ./db/db_root_password.txt
