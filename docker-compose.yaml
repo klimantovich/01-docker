@@ -2,15 +2,14 @@ version: '3.3'
 
 services:
   db:
-    image: mysql:8.0.34
+    # image: mysql:8.0.34
+    image: klim4ntovich.online/mysql:8.0.34
     environment:
       MYSQL_DATABASE: employee_db
       MYSQL_USER: db_user
-      MYSQL_PASSWORD_FILE: /run/secrets/db_password
-      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
     restart: always
     healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password='$$(cat /run/secrets/db_password)'"]
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password='$$MYSQL_PASSWORD'"]
       start_period: 20s
       interval: 5s
       retries: 5
@@ -21,11 +20,9 @@ services:
     volumes:
       - "./db/init.sql:/docker-entrypoint-initdb.d/init.sql"
       - db-data:/var/lib/mysql
-    secrets:
-      - db_password
-      - db_root_password
+
   front:
-    build: ./app
+    image: klim4ntovich.online/flask-application
     deploy:
       mode: replicated
       replicas: 3
@@ -42,10 +39,9 @@ services:
       - backend
     expose:
       - '5000'
-    secrets:
-      - db_password
+
   loadbalancer:
-    build: ./loadbalancer
+    build: klim4ntovich.online/loadbalancer
     restart: always
     networks:
       - frontend
