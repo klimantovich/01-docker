@@ -2,7 +2,7 @@
 ## Description
 Simple web application on python(flask) + MySQL / docker-compose.
 ## Run application
-To run the application you need to have linux-based OS with installed docker-compose (https://docs.docker.com/compose/)  
+To run the application you need to have linux-based OS with installed docker-compose v.2.22.0 (https://github.com/docker/compose/releases/tag/v2.22.0)  
 Run the command `docker-compose up -d` to run the app on your local os.  
 Run `docker ps` to ensure that all of containers are up and running.
 ## How to use application
