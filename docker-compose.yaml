@@ -3,9 +3,8 @@ version: '3'
 services:
   db:
     image: klim4ntovich.online/mysql:8.0.34
-    environment:
-      MYSQL_DATABASE: employee_db
-      MYSQL_USER: db_user
+    env_file:
+      - .env
     restart: always
     healthcheck:
       test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password='$$MYSQL_PASSWORD'"]
@@ -26,10 +25,13 @@ services:
       mode: replicated
       replicas: 3
     restart: always
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file:
+      - .env
     environment:
       DB_HOST: db
-      DB_NAME: employee_db
-      DB_USER: db_user
     networks:
       - frontend
       - backend
