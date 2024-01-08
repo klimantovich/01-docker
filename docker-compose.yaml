@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
   db:
-    image: mysql:8.0.34
+    image: klim4ntovich.online/mysql:8.0.34
     env_file:
       - .env
     restart: always
@@ -20,7 +20,7 @@ services:
       - db-data:/var/lib/mysql
 
   front:
-    build: ./app
+    image: klim4ntovich.online/flask-application
     deploy:
       mode: replicated
       replicas: 3
@@ -39,7 +39,7 @@ services:
       - '5000'
 
   loadbalancer:
-    build: ./loadbalancer
+    image: klim4ntovich.online/loadbalancer
     restart: always
     networks:
       - frontend
