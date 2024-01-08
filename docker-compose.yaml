@@ -2,10 +2,9 @@ version: '3.3'
 
 services:
   db:
-    image: klim4ntovich.online/mysql:8.0.34
-    environment:
-      MYSQL_DATABASE: employee_db
-      MYSQL_USER: db_user
+    image: mysql:8.0.34
+    env_file:
+      - .env
     restart: always
     healthcheck:
       test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password='$$MYSQL_PASSWORD'"]
@@ -21,7 +20,7 @@ services:
       - db-data:/var/lib/mysql
 
   front:
-    image: klim4ntovich.online/flask-application
+    build: ./app
     deploy:
       mode: replicated
       replicas: 3
@@ -29,10 +28,10 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    env_file:
+      - .env
     environment:
       DB_HOST: db
-      DB_NAME: employee_db
-      DB_USER: db_user
     networks:
       - frontend
       - backend
@@ -40,7 +39,7 @@ services:
       - '5000'
 
   loadbalancer:
-    image: klim4ntovich.online/loadbalancer
+    build: ./loadbalancer
     restart: always
     networks:
       - frontend
